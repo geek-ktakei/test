@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+/* ==========================================================================
+
+   ========================================================================== */
+@import 'config';
+@import 'core/normalize';
+@import 'core/mixin';
+@import 'core/modules';
+
+@import url(http://fonts.googleapis.com/css?family=Monoton);
+body {
+	background: rgba(236, 240, 241, 1);
+	color: rgba(44, 62, 80, 1);
+}
+a {
+	color: rgba(52, 152, 219, 1);
+}
+
+
+.title {
+	color: white;
+	font-size: 5rem;
+	text-align: center;
+	font-weight: normal;
+	line-height: 1;
+}
+.title_font {
+	font-family: 'Monoton', cursive;
+	color: rgba(26, 188, 156,1.0);
+}
+.title_date {
+	display: block;
+	font-size: 1.5rem;
+}
+
+#contents_head {
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0 10px;
+	width: 300px;
+	height: 100%;
+	background: rgba(189, 195, 199, 1);
+
+	.agenda {
+		ul {
+			padding: 0;
+			margin-bottom: 15px;
+		}
+		li {
+			list-style: none;
+			margin-bottom: 5px;
+			font-weight: bold;
+			li {
+				padding-left: 15px;
+				font-weight: normal;
+			}
+		}
+		a {
+			color: #333333;
+			text-decoration: none;
+		}
+	}
+}
+
+
+
+#contents {
+	padding: 0 10px;
+	margin-left: 330px;
+}
+
+article {
+	margin-bottom: 105px;
+}

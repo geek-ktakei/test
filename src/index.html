@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Sass</title>
+<link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+<header id="contents_head">
+<h1 class="title"><span class="title_font">GEEK</span>
+<span class="title_date">2014/08/07</span></h1>
+
+
+<nav class="agenda">
+<ul>
+<li><a href="#task">Task Runner</a>
+<ul>
+<li>grunt</li>
+<li>gulp</li>
+</ul>
+
+
+</li>
+<li><a href="#prepro">CSS PreProcesser</a></li>
+<li><a href="#arch">CSS Architect</a></li>
+</ul>
+</nav>
+</header>
+
+
+
+<div id="contents">
+<article id="task">
+<h1>Task Runner</h1>
+<p>細々した作業を自動化してしまいましょう。という風潮</p>
+<section>
+<h2>Grunt</h2>
+<ul>
+<li>現在主流のタスクランナー</li>
+<li>豊富なプラグイン</li>
+<li>多くの日本語情報</li>
+</ul>
+</section>
+
+<section>
+<h2>Gulp</h2>
+<p></p>
+<ul>
+<li>後発のタスクランナー</li>
+<li>gruntに比べてサクサク動く（気がする）</li>
+<li>コンフィグが書きやすい（気がする）</li>
+<li>ナウい</li>
+</ul>
+
+</section>
+
+<section>
+<h2>How to use</h2>
+<div class="box">
+<h3>必要なファイル</h3>
+<ul>
+<li><dl>
+<dt><strong>package.json</strong></dt>
+<dd>使いたいパッケージ（Nodeアプリケーション）を記載</dd>
+</dl></li>
+<li><dl>
+<dt><strong>Gruntfile.js</strong> or <strong>gulpfile.js</strong></dt>
+<dd>コンフィグ（タスクの定義等）</dd>
+</dl></li>
+</ul>
+<!-- /.box --></div>
+
+<div class="box">
+<h3>実行方法</h3>
+<ol>
+<li><dl><dt>$npm install</dt><dd>package.jsonに記載さているパッケージをインストール</dd></dl></li>
+<li><dl><dt>$grunt(gulp) example</dt><dd>grunt(gulp)のみだとdefaltタスクを実行</dd></dl></li>
+</ol>
+<!-- /.box --></div>
+</section>
+</article>
+
+
+
+<article id="prepro">
+<h1>CSS PreProcesser</h1>
+<p>言語として貧弱なCSSをいい感じに書きたい。という流れ</p>
+</article>
+
+
+
+<article id="arch">
+<h1>CSS Archtect</h1>
+<p>cssは自由かつ簡単に記述しする事ができる為、肥大化しやすく破綻してしまいやすい。<br />
+その為、ルールを作り秩序をもたらす事が必要となる。</p>
+
+<section>
+<h2>代表的な設計思想</h2>
+<dl>
+<dt><a href="http://oocss.org/" target="_blank">OOCSS</a></dt>
+<dd>
+<p>Object Oriented Cascading Style Sheets</p>
+<ul>
+<li>2009年にNicole Sullivanによって提唱</li>
+<li>構造とスキンに分離してクラスを定義する</li>
+<li>https://fronteers.nl/congres/2009/sessions/object-oriented-css</li>
+</ul>
+</dd>
+</dl>
+
+<dl>
+<dt><a href="https://smacss.com/book/" target="_blank">SMACSS</a></dt>
+<dd>
+<p>Scalable and ModularArchitecture for CSS</p>
+<ul>
+<li>2011年にJonathan Snookによって提唱</li>
+<li>Base、Layout、Module、State、Themeの５つのカテゴリに分類しクラスを定義する</li>
+<li>http://vimeo.com/61755493</li>
+</ul>
+</dd>
+</dl>
+
+
+<dl>
+<dt><a href="http://bem.info/" target="_blank">BEM</a></dt>
+<dd><p>Block、Element、Modifier</p>
+<ul>
+<li>2012年にYandex社によって提唱</li>
+<li>Block、Element、Modifierに分類し、厳格な命名規則に従いクラスを定義する</li>
+<li>http://vimeo.com/53219242</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<!-- /#contents --></div>
+</body>
+</html>

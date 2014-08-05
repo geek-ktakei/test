@@ -1,0 +1,15 @@
+{
+  "name": "GEEK_SAMPLE",
+  "version": "0.0.0",
+  "description": "sample file",
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-load-plugins": "~0.5.3",
+    "gulp-connect": "^2.0.6",
+    "gulp-compass": "^1.1.9",
+    "gulp-htmlhint": "0.0.8",
+    "gulp-plumber": "~0.6.3",
+    "gulp-notify": "~1.4.0",
+    "gulp-shell": "~0.2.8"
+  }
+}
