@@ -4,6 +4,95 @@
 <meta charset="UTF-8">
 <title>Sass</title>
 <link href="/css/style.css" rel="stylesheet" />
+<script>
+'use strict';
+new function(){
+
+    var attr ="data-tor-smoothScroll";//for html5 , if you can't use html5 , this value change "class"
+    var attrPatt = /noSmooth/;
+    var d = document;//document short cut
+
+    /*
+     *add Event
+      -------------------------------------------------*/
+    function addEvent(elm,listener,fn){
+        try{ // IE
+            elm.addEventListener(listener,fn,false);
+        }catch(e){
+            elm.attachEvent(
+                "on"+listener
+                ,function(){
+                    fn.apply(elm,arguments)
+                }
+            );
+        }
+    }
+
+    /*
+     *Start SmoothScroll
+      -------------------------------------------------*/
+    function SmoothScroll(a){
+        if(d.getElementById(a.rel.replace(/.*\#/,""))){
+            var e = d.getElementById(a.rel.replace(/.*\#/,""));
+        }else{
+            return;
+        }
+
+        //Move point
+        var end=e.offsetTop
+        var docHeight = d.documentElement.scrollHeight;
+        var winHeight = window.innerHeight || d.documentElement.clientHeight
+        if(docHeight-winHeight<end){
+            var end = docHeight-winHeight;
+        }
+
+        //Current Point
+        var start=window.pageYOffset || d.documentElement.scrollTop || d.body.scrollTop || 0;
+
+
+        var flag=(end<start)?"up":"down";
+
+        function scrollMe(start,end,flag) {
+            setTimeout(
+                function(){
+                    if(flag=="up" && start >= end){
+                        start=start-(start-end)/20-1;
+                        window.scrollTo(0,start)
+                        scrollMe(start,end,flag);
+                    }else if(flag=="down" && start <= end){
+                        start=start+(end-start)/20+1;
+                        window.scrollTo(0,start)
+                        scrollMe(start,end,flag);
+                    }else{
+                        scrollTo(0,end);
+                    }
+                    return ;
+                }
+                ,10
+            );
+
+        }
+
+        scrollMe(start,end,flag);
+
+    }
+
+    /*
+     *Add SmoothScroll
+      -------------------------------------------------*/
+    addEvent(window,"load",function(){
+        var anchors = d.getElementsByTagName("a");
+        for(var i = 0 ,len=anchors.length; i<len ; i++){
+            if(!attrPatt.test(anchors[i].getAttribute(attr)) &&
+                anchors[i].href.replace(/\#[a-zA-Z0-9_]+/,"") == location.href.replace(/\#[a-zA-Z0-9_]+/,"")){
+                anchors[i].rel = anchors[i].href;
+                anchors[i].href = "javascript:void(0)";
+                anchors[i].onclick=function(){SmoothScroll(this)}
+            }
+        }
+    });
+}
+</script>
 </head>
 
 <body>
@@ -16,26 +105,51 @@
 <ul>
 <li><a href="#task">Task Runner</a>
 <ul>
-<li>grunt</li>
-<li>gulp</li>
+<li><a href="#grunt">Grunt</a></li>
+<li><a href="#gulp">Gulp</a></li>
+<li><a href="#howto">How to use</a>
+<ul>
+<li><a href="#howto_files">- Required files</a></li>
+<li><a href="#howto_start">- Start task</a></li>
 </ul>
-
-
 </li>
-<li><a href="#prepro">CSS PreProcesser</a></li>
-<li><a href="#arch">CSS Architect</a></li>
+</ul>
+</li>
+
+
+<li><a href="#prepro">CSS Preprocessor</a>
+<ul>
+<li><a href="#sass">Sass</a>
+<ul>
+<li><a href="#sass_nesting">- Nesting</a></li>
+<li><a href="#sass_extend">- @extend</a></li>
+<li><a href="#sass_mixin">- @mixin</a></li>
+<li><a href="#sass_etc">- etc...</a></li>
+</ul>
+</li>
+</ul>
+</li>
+
+
+<li><a href="#arch">CSS Architects</a>
+<ul>
+<li><a href="#oocss">OOCSS</a></li>
+<li><a href="#smacss">SMACSS</a></li>
+<li><a href="#bem">BEM</a></li>
+</ul>
+</li>
 </ul>
 </nav>
 </header>
 
-
-
 <div id="contents">
 <article id="task">
-<h1>Task Runner</h1>
-<p>細々した作業を自動化してしまいましょう。という風潮</p>
-<section>
-<h2>Grunt</h2>
+<h2>Task Runner</h2>
+<p>Sassのコンパイルやhtmlのバリデーション、ブラウザのリロードなど、<br />
+細々した作業は自動化する。</p>
+<section id="grunt">
+<h3>Grunt</h3>
+<p><a href="http://gruntjs.com/" target="_blank">Documentation</a></p>
 <ul>
 <li>現在主流のタスクランナー</li>
 <li>豊富なプラグイン</li>
@@ -43,8 +157,10 @@
 </ul>
 </section>
 
-<section>
-<h2>Gulp</h2>
+
+<section id="gulp">
+<h3>Gulp</h3>
+<p><a href="http://gulpjs.com/" target="_blank">Documentation</a></p>
 <p></p>
 <ul>
 <li>後発のタスクランナー</li>
@@ -52,13 +168,13 @@
 <li>コンフィグが書きやすい（気がする）</li>
 <li>ナウい</li>
 </ul>
-
 </section>
 
-<section>
-<h2>How to use</h2>
-<div class="box">
-<h3>必要なファイル</h3>
+
+<section id="howto">
+<h3>How to use</h3>
+<div class="box" id="howto_files">
+<h4>Required files</h4>
 <ul>
 <li><dl>
 <dt><strong>package.json</strong></dt>
@@ -71,8 +187,8 @@
 </ul>
 <!-- /.box --></div>
 
-<div class="box">
-<h3>実行方法</h3>
+<div class="box" id="howto_start">
+<h4>Start task</h4>
 <ol>
 <li><dl><dt>$npm install</dt><dd>package.jsonに記載さているパッケージをインストール</dd></dl></li>
 <li><dl><dt>$grunt(gulp) example</dt><dd>grunt(gulp)のみだとdefaltタスクを実行</dd></dl></li>
@@ -84,51 +200,213 @@
 
 
 <article id="prepro">
-<h1>CSS PreProcesser</h1>
-<p>言語として貧弱なCSSをいい感じに書きたい。という流れ</p>
+<h2>CSS Preprocessor</h2>
+<p>言語として貧弱なCSSをいい感じに書く。</p>
+<section id="sass">
+<h3>Sass</h3>
+<p><a href="http://sass-lang.com/" target="_blank">Documentation</a></p>
+<div class="box" id="sass_nesting">
+<h4>Nesting</h4>
+<dl>
+<dt>SCSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">.example</span> {
+    <span class="propaty">background</span>: <span class="value">black</span>;
+    <span class="selecter">.text</span> {
+        <span class="propaty">color</span>: <span class="value">red</span>;
+    }
+}
+</pre>
+</dd>
+</dl>
+
+<dl>
+<dt>CSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">.example</span> {
+    <span class="propaty">background</span>: <span class="value">black</span>;
+}
+<span class="selecter">.example .text</span> {
+    <span class="propaty">color</span>: <span class="value">red</span>;
+}
+</pre>
+</dd>
+</dl>
+<!-- /.box --></div>
+
+<div class="box" id="sass_extend">
+<h4>@extend</h4>
+<dl>
+<dt>SCSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">%text_large</span> {
+    <span class="propaty">font-size</span>: <span class="value">1.3rem</span>;
+}
+<span class="selecter">.text01</span> {
+    <span class="sass_propaty">@extend</span> <span class="sass_value">.text_large</span>;
+    <span class="propaty">color</span>: <span class="value">red</span>;
+}
+<span class="selecter">.text02</span> {
+    <span class="sass_propaty">@extend</span> <span class="sass_value">.text_large</span>;
+    <span class="propaty">color</span>: <span class="value">blue</span>;
+}
+</pre>
+</dd>
+</dl>
+
+<dl>
+<dt>CSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">.text01</span>,
+<span class="selecter">.text02</span> {
+    <span class="propaty">font-size</span>: <span class="value">1.3rem</span>;
+}
+<span class="selecter">.text01</span> {
+    <span class="propaty">color</span>: <span class="value">red</span>;
+}
+<span class="selecter">.text02</span> {
+    <span class="propaty">color</span>: <span class="value">blue</span>;
+}
+</pre>
+</dd>
+</dl>
+<!-- /.box --></div>
+
+
+<div class="box" id="sass_mixin">
+<h4>@mixin</h4>
+<dl>
+<dt>SCSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="sass_propaty">@mixin</span> <span class="sass_value">grady($from, $to)</span> {
+    <span class="propaty">background</span>: <span class="value">-moz-linear-gradient(top, <span class="sass_value">#{$from}</span>, <span class="sass_value">#{$to}</span>)</span>;
+    <span class="propaty">background</span>: <span class="value">-webkit-gradient(linear, left top, <span class="sass_value">#{$from}</span>, <span class="sass_value">#{$to}</span>)</span>;
+}
+<span class="selecter">.box</span> {
+    <span class="sass_propaty">@include</span> <span class="sass_value">grady(white, black)</span>;
+}
+</pre>
+</dd>
+</dl>
+
+<dl>
+<dt>CSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">.box</span> {
+    <span class="propaty">background</span>: <span class="value">-moz-linear-gradient(top, white, black)</span>;
+    <span class="propaty">background</span>: <span class="value">-webkit-gradient(linear, left top, white, black)</span>;
+}
+</pre>
+</dd>
+</dl>
+<!-- /.box --></div>
+
+<div class="box" id="sass_etc">
+<h4>etc...</h4>
+<dl>
+<dt>SCSS :</dt>
+<dd>
+<pre class="syntax_css">
+
+<span class="sass_propaty">$banner_type</span>: <span class="sass_value">campaign</span>;
+<span class="sass_propaty">$accent_color</span>: <span class="sass_value">blue</span>;
+
+<span class="selecter">.<span class="sass_propaty">#{$banner_type}</span>_banner</span> {
+    <span class="propaty">width</span>: <span class="value">500<span class="sass_propaty">/</span>2px</span>;
+    <span class="selecter">a</span> {
+        <span class="propaty">display</span>: <span class="value">block</span>;
+        <span class="propaty">padding</span>: <span class="value">10px 20px</span>;
+        <span class="propaty">color</span>: red;
+        <span class="sass_propaty">&amp;</span><span class="selecter">:hover</span> {
+            <span class="propaty">color</span>: <span class="sass_propaty">$accent_color</span>;
+        }
+    }
+}
+</pre>
+</dd>
+</dl>
+
+<dl>
+<dt>CSS :</dt>
+<dd>
+<pre class="syntax_css">
+<span class="selecter">.campaign_banner</span> {
+    <span class="propaty">width</span>: <span class="value">250px</span>;
+}
+<span class="selecter">.campaign_banner a</span> {
+    <span class="propaty">display</span>: <span class="value">block</span>;
+    <span class="propaty">padding</span>: <span class="value">10px 25px</span>;
+    <span class="propaty">color</span>: <span class="value">red</span>;
+}
+<span class="selecter">.campaign_banner a:hover</span> {
+    <span class="propaty">color</span>: <span class="value">blue</span>;
+}
+</pre>
+</dd>
+</dl>
+<!-- /.box --></div>
+
+</section>
 </article>
 
 
 
 <article id="arch">
-<h1>CSS Archtect</h1>
+<h2>CSS Architects</h2>
 <p>cssは自由かつ簡単に記述しする事ができる為、肥大化しやすく破綻してしまいやすい。<br />
 その為、ルールを作り秩序をもたらす事が必要となる。</p>
 
-<section>
-<h2>代表的な設計思想</h2>
+<section id="oocss">
+<h3>OOCSS</h3>
+<p><a href="http://oocss.org/" target="_blank">Documentation</a></p>
 <dl>
-<dt><a href="http://oocss.org/" target="_blank">OOCSS</a></dt>
+<dt><strong>Object Oriented Cascading Style Sheets</strong></dt>
 <dd>
-<p>Object Oriented Cascading Style Sheets</p>
 <ul>
 <li>2009年にNicole Sullivanによって提唱</li>
 <li>構造とスキンに分離してクラスを定義する</li>
-<li>https://fronteers.nl/congres/2009/sessions/object-oriented-css</li>
+<li><a href="https://fronteers.nl/congres/2009/sessions/object-oriented-css" target="_blank">Object Oriented CSS by Nicole Sullivan</a>
+</li>
 </ul>
 </dd>
 </dl>
+</section>
 
+
+<section id="smacss">
+<h3>SMACSS</h3>
+<p><a href="https://smacss.com/book/" target="_blank">Documentation</a></p>
 <dl>
-<dt><a href="https://smacss.com/book/" target="_blank">SMACSS</a></dt>
+<dt><strong>Scalable and ModularArchitecture for CSS</strong></dt>
 <dd>
-<p>Scalable and ModularArchitecture for CSS</p>
 <ul>
 <li>2011年にJonathan Snookによって提唱</li>
 <li>Base、Layout、Module、State、Themeの５つのカテゴリに分類しクラスを定義する</li>
-<li>http://vimeo.com/61755493</li>
+<li><a href="http://vimeo.com/61755493" target="_blank">Your CSS is a Mess by Jonathan Snook</a>
+</li>
 </ul>
 </dd>
 </dl>
+</section>
 
 
+<section id="bem">
+<h3>BEM</h3>
+<p><a href="http://bem.info/" target="_blank">Documentation</a></p>
 <dl>
-<dt><a href="http://bem.info/" target="_blank">BEM</a></dt>
-<dd><p>Block、Element、Modifier</p>
+<dt><strong>Block Element Modifier</strong></dt>
+<dd>
 <ul>
 <li>2012年にYandex社によって提唱</li>
 <li>Block、Element、Modifierに分類し、厳格な命名規則に従いクラスを定義する</li>
-<li>http://vimeo.com/53219242</li>
+<li><a href="http://vimeo.com/53219242" target="_blank">BEM. What you can borrow from Yandex</a>
+</li>
 </ul>
 </dd>
 </dl>

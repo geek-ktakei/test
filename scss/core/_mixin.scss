@@ -3,48 +3,12 @@
 // Custom mixin
 // ==========================================================================
 
-// Image mixin
-// ==========================================================================
-// disabled user-event
-@mixin disabled-select() {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-@mixin disabled-drag() {
-	-webkit-user-drag: none;
-	-moz-user-drag: none;
-	-ms-user-drag: none;
-	// user-drag: none;
-}
-@mixin disabled-select-drag() {
-	@include disabled-select();
-	@include disabled-drag();
-}
-
-
 // Color
 // ==========================================================================
 @mixin color-pattern($color, $bg: false) {
 	color: $color;
 	@if $bg == true {
 		background-color: $color;
-	}
-}
-
-// border
-// ==========================================================================
-@mixin divider($color: #dfdac6, $dir: 'bottom') {
-	border-#{$dir}: 1px solid $color;
-	@if $dir == 'top' {
-		@include box-shadow(0 1px 0 #fff inset);
-	} @elseif $dir == 'bottom' {
-		@include box-shadow(0 1px 0 #fff);
-	} @elseif $dir == 'left' {
-		@include box-shadow(1px 0 0 #fff inset);
-	} @elseif $dir == 'right' {
-		@include box-shadow(1px 0 0 #fff);
 	}
 }
 
@@ -105,141 +69,8 @@
 		background-image: none;
 	}
 
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/resources/common/img/sprites/#{sprite-map-name($map)/$url}.png', sizingMethod='#{$sizingmethod}');
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{sprite-map-name($map)/$url}.png', sizingMethod='#{$sizingmethod}');
 	// -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/resources/common/img/sprites/#{sprite-map-name($map)/$url}.png', sizingMethod='#{$sizingmethod}')";
-}
-
-@mixin background-rgba($rgba) {
-	background-color: $rgba;
-	@include filter-gradient($rgba, $rgba);
-}
-
-// CSS Sprite
-// ===================================================================
-@mixin sprite() {
-	display: block;
-	//text-indent: -9999px;
-	background-repeat: no-repeat;
-	@include hide-text();
-	line-height: 1;
-}
-
-@mixin sprites($map, $map-item, $isCommon: false) {
-	@if $isCommon {
-		display: block;
-		text-indent: -9999px;
-		line-height: 1;
-
-		@if $isRetina {
-			background-image: sprite-url($map);
-			background-repeat: no-repeat;
-			background-size: round(image-width(sprite-path($map)) / 2) round(image-height(sprite-path($map)) / 2);
-		} @else {
-			background-image: sprite-url($map);
-			background-repeat: no-repeat;
-		}
-
-	} @else {
-
-		@if $isRetina {
-			$pos-y: round(nth(sprite-position($map, $map-item), 2) / 2);
-			width: round(image-width(sprite-file($map, $map-item)) / 2);
-			height: round(image-height(sprite-file($map, $map-item)) / 2);
-			background-position: 0 $pos-y;
-		} @else {
-			$pos-y: sprite-position($map, $map-item);
-			width: image-width(sprite-file($map, $map-item));
-			height: image-height(sprite-file($map, $map-item));
-			background-position: $pos-y;
-		}
-
-		// .no-backgroundsize & {
-		// 	@include ie-background-scale($map, $map-item, 'scale', true);
-		// }
-	}
-}
-
-
-
-@mixin sprite-item($url) {
-	display: block;
-	width: image-width($url);//$width;
-	height: image-height($url);//$height;
-	background-image: url(#{$url});
-	background-repeat: no-repeat;
-	text-indent: -9999px;
-	line-height: 1;
-}
-
-@mixin list-sprite-item($width, $height, $bgLeft, $bgTop: 0) {
-	width: $width;
-	height: $height;
-	background-position: $bgLeft 0;
-
-	@if $bgTop != 0 {
-		&.current,
-		&:hover {
-			background-position: $bgLeft $bgTop;
-		}
-	}
-}
-
-
-// Overlay
-// ===================================================================
-@mixin simple-overlay() {
-	%overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 100;
-		width: 100%;
-		max-width: 640px;
-		height: 100%;
-	}
-	.modModal {
-		@extend %overlay;
-		display: none;
-	}
-	.modModalBg {
-		@extend %overlay;
-		background-color: #000;
-		@include opacity(.5);
-		img {
-			width: 100%;
-			height: 100%;
-		}
-	}
-	.modModalContent {
-		position: relative;
-		top: 54px;
-		// position: absolute;
-		// top: 0;
-		// left: 0;
-		// overflow: hidden;
-		z-index: 105;
-		width: 93.75%;
-		margin: 0 auto;
-		@include border-radius(6px 6px 4px 4px);
-		background-color: #fff;
-		@if $legacy-support-for-ie {
-			*zoom: 1;
-		}
-
-		.btnClose {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 45px;
-			height: 45px;
-
-			a {
-				display: block;
-				width: 45px;
-				height: 45px;
-			}
-		}
-	}
 }
 
 // clearfix
@@ -256,79 +87,5 @@
 	}
 	&:after {
 		clear: both;
-	}
-}
-
-
-// jcom utilities
-// ===================================================================
-// buttons
-@mixin btn-pagetop() {
-	.#{$prefix}Bt01 {
-		text-align: right;
-		clear: both;
-	}
-}
-@mixin btn-category-top() {
-	.#{$prefix}Bt02 {
-		text-align: right;
-		clear: both;
-	}
-}
-
-
-// image
-@mixin float-image() {
-	.#{$prefix}Img01 {
-		@include clearfix;
-		.#{$prefix}Info01 {
-			float: left;
-		}
-		.#{$prefix}Ph01 {
-			float: right;
-		}
-	}
-	.#{$prefix}Img02 {
-		@include clearfix;
-		.#{$prefix}Info01 {
-			float: right;
-		}
-		.#{$prefix}Ph01 {
-			float: left;
-		}
-	}
-}
-
-// table
-@mixin program-table() {
-	.#{$prefix}Table01 {
-		width: 100%;
-		border-collapse: collapse;
-
-		th {
-			width: 76px;
-			height: 22px;
-			padding-top: 2px\9;
-			img {
-				vertical-align: top;
-			}
-		}
-		// td {
-		// 	font-size: 92%;
-		// }
-	}
-}
-
-
-// copyguard
-@mixin copyguard() {
-	.copyguard {
-		display: block;
-		position: relative;
-		img {
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
 	}
 }

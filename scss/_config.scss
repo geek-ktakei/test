@@ -5,25 +5,3 @@
 // ==========================================================================
 // import Compass
 // ==========================================================================
-@import "compass";
-
-// ==========================================================================
-// Compass設定
-// ==========================================================================
-// *IE用(PC)は出力させない
-$legacy-support-for-ie: true;
-$legacy-support-for-ie8: true;
-// *旧Firefox向け(PC)のスタイルを出力させない
-$legacy-support-for-mozilla: false;
-
-// ベンダープレフィックスの出力
-$experimental-support-for-mozilla: true;
-$experimental-support-for-webkit: true;
-$experimental-support-for-opera: false;
-$experimental-support-for-microsoft: false;
-$experimental-support-for-khtml: false;
-$official: true;
-
-// テキストを隠す方向
-$hide-text-direction: right;
-
