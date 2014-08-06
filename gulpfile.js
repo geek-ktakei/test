@@ -15,9 +15,6 @@ gulp.task('webserver', function() {
     }));
 });
 
-
-
-
 // Validate HTML
 gulp.task('hint', function() {
 	gulp.src('./src/{,**/}*.html')
@@ -30,39 +27,32 @@ gulp.task('hint', function() {
 });
 
 // Compile Sass
-gulp.task('sass', function(){
+gulp.task('css', function() {
 	return gulp.src('./scss/{,**/}*.scss')
 		.pipe($.plumber())
 		.pipe(sass({
-			style : 'compact',		// nested, compact, compressed, expanded
+			style : 'compact',
+			lineNumbers : true
 		}))
 		.on('error', function(error) {
-			$.notify().write(error.message)
+			$.notify().write(error.message);
 		})
-		.pipe(gulp.dest('./src/css'));
+		.pipe($.pleeease({
+			fallbacks: {
+				autoprefixer: ['last 4 versions'],
+				rem: false
+			},
+			optimizers: {
+				minifier: false
+			}
+		}))
+		.pipe($.cssbeautify({
+			indent: '\t',
+			openbrace: 'end-of-line',
+			autosemicolon: false
+		}))
+		.pipe(gulp.dest('./src/css/'));
 });
-
-
-gulp.task('css', ['sass'], function() {
-	gulp.src('./src/css/{,**/}*.css')
-	.pipe($.pleeease({
-		fallbacks: {
-			autoprefixer: ['last 4 versions'],
-			filters: { 'oldIE': true },
-			rem: false,
-		},
-		optimizers: {
-			minifier: false
-		}
-	}))
-	.pipe($.cssbeautify({
-		indent: '\t',
-		openbrace: 'end-of-line',
-		autosemicolon: false
-	}))
-	.pipe(gulp.dest('./src/css/'));
-});
-
 
 // Watch Files
 gulp.task('watch',function(){
@@ -72,4 +62,4 @@ gulp.task('watch',function(){
 
 
 // Set Defalt
-gulp.task('default', ['webserver', 'sass', 'watch']);
+gulp.task('default', ['webserver', 'css', 'watch']);
