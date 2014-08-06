@@ -1,11 +1,5 @@
 @charset "utf-8";
-
-/* ==========================================================================
-
-   ========================================================================== */
-@import 'core/normalize';
-@import 'core/mixin';
-@import 'core/modules';
+@import 'partial/normalize';
 
 @import url(http://fonts.googleapis.com/css?family=Monoton);
 @import url(http://fonts.googleapis.com/css?family=Raleway:200);
@@ -17,6 +11,7 @@ body {
 }
 a {
 	color: rgba(52, 152, 219, 1);
+	color: rgba(25, 181, 254, 1);
 }
 
 
@@ -30,7 +25,7 @@ a {
 }
 .title_font {
 	font-family: 'Monoton', cursive;
-	color: rgba(26, 188, 156,1.0);
+	color: rgba(26, 188, 156, 1);
 }
 .title_date {
 	display: block;
@@ -83,8 +78,14 @@ article {
 		font-family: 'Raleway', sans-serif;
 		font-weight: normal;
 	}
+	h3 {
+		font-size: 2rem;
+		margin-bottom: 5px;
+	}
 	h4 {
 		color: #808080;
+		border-bottom: dotted 1px #666666;
+		font-size: 1.5rem;
 	}
 	dd {
 		margin: 0;
@@ -100,12 +101,14 @@ section {
 .syntax_css {
 	padding: 15px 20px;
 	background: rgba(236, 240, 241, 1);
-	color: rgba(241, 196, 15,1.0);
+	color: rgba(241, 196, 15, 1);
 	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 	line-height: 1.2;
+
+	.comment { color: rgba(180, 180, 180, 1); }
 	.selecter { color: rgba(155, 89, 182, 1); }
 	.propaty { color: rgba(230, 126, 34, 1); }
 	.value { color: rgba(52, 152, 219, 1); }
-	.sass_propaty { color: rgba(231, 76, 60,1.0); }
-	.sass_value { color: rgba(46, 204, 113,1.0); }
+	.sass_propaty { color: rgba(231, 76, 60, 1); }
+	.sass_value { color: rgba(46, 204, 113, 1); }
 }

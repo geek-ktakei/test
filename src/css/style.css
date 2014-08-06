@@ -1,6 +1,5 @@
 @charset "UTF-8";
-/* ==========================================================================
- ========================================================================== */
+
 @import url(http://fonts.googleapis.com/css?family=Monoton);
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:200);
@@ -211,6 +210,7 @@ body {
 
 a {
 	color: #3498db;
+	color: #19b5fe;
 }
 
 .title {
@@ -281,8 +281,15 @@ article h2 {
 	font-weight: normal;
 }
 
+article h3 {
+	font-size: 2rem;
+	margin-bottom: 5px;
+}
+
 article h4 {
 	color: #808080;
+	border-bottom: dotted 1px #666666;
+	font-size: 1.5rem;
 }
 
 article dd {
@@ -303,6 +310,10 @@ section {
 	color: #f1c40f;
 	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 	line-height: 1.2;
+}
+
+.syntax_css .comment {
+	color: #b4b4b4;
 }
 
 .syntax_css .selecter {

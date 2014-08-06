@@ -26,8 +26,7 @@ gulp.task('hint', function() {
 		.pipe($.htmlhint.failReporter())
 		.on('error', $.notify.onError(function(error) {
 			return error.message;
-		}))
-		.pipe($.connect.reload());
+		}));
 });
 
 // Compile Sass
@@ -61,8 +60,7 @@ gulp.task('css', ['sass'], function() {
 		openbrace: 'end-of-line',
 		autosemicolon: false
 	}))
-	.pipe(gulp.dest('./src/css/'))
-	.pipe($.connect.reload());
+	.pipe(gulp.dest('./src/css/'));
 });
 
 
