@@ -256,7 +256,7 @@ a {
 
 /* line 18, ../style.scss */
 .title {
-	margin: 35px 0 45px;
+	margin: 35px 0 35px;
 	color: white;
 	font-size: 5rem;
 	text-align: center;
@@ -321,40 +321,39 @@ article {
 }
 /* line 73, ../style.scss */
 article h2 {
-	position: relative;
 	border-bottom: solid 2px #2980b9;
 	color: #2980b9;
 	font-size: 2.5rem;
 	font-family: 'Raleway', sans-serif;
 	font-weight: normal;
 }
-/* line 81, ../style.scss */
+/* line 80, ../style.scss */
 article h3 {
 	font-size: 2rem;
 	margin-bottom: 5px;
 }
-/* line 85, ../style.scss */
+/* line 84, ../style.scss */
 article h4 {
 	color: #808080;
 	border-bottom: dotted 1px #666666;
 	font-size: 1.5rem;
 }
-/* line 90, ../style.scss */
+/* line 89, ../style.scss */
 article dd {
 	margin: 0;
 }
 
-/* line 94, ../style.scss */
+/* line 93, ../style.scss */
 section {
 	margin-bottom: 50px;
 }
 
-/* line 97, ../style.scss */
+/* line 96, ../style.scss */
 .box {
 	margin-bottom: 50px;
 }
 
-/* line 101, ../style.scss */
+/* line 100, ../style.scss */
 .syntax_css {
 	padding: 15px 20px;
 	background: #ecf0f1;
@@ -362,27 +361,27 @@ section {
 	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 	line-height: 1.2;
 }
-/* line 108, ../style.scss */
+/* line 107, ../style.scss */
 .syntax_css .comment {
 	color: #b4b4b4;
 }
-/* line 109, ../style.scss */
+/* line 108, ../style.scss */
 .syntax_css .selecter {
 	color: #9b59b6;
 }
-/* line 110, ../style.scss */
+/* line 109, ../style.scss */
 .syntax_css .propaty {
 	color: #e67e22;
 }
-/* line 111, ../style.scss */
+/* line 110, ../style.scss */
 .syntax_css .value {
 	color: #3498db;
 }
-/* line 112, ../style.scss */
+/* line 111, ../style.scss */
 .syntax_css .sass_propaty {
 	color: #e74c3c;
 }
-/* line 113, ../style.scss */
+/* line 112, ../style.scss */
 .syntax_css .sass_value {
 	color: #2ecc71;
 }
