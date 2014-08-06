@@ -8,12 +8,12 @@
 'use strict';
 new function(){
 
-    var attr ="data-tor-smoothScroll";//for html5 , if you can't use html5 , this value change "class"
+    var attr ="data-tor-smoothScroll"; // for html5 , if you can't use html5 , this value change "class"
     var attrPatt = /noSmooth/;
-    var d = document;//document short cut
+    var d = document; // document short cut
 
     /*
-     *add Event
+     * add Event
       -------------------------------------------------*/
     function addEvent(elm,listener,fn){
         try{ // IE
@@ -29,7 +29,7 @@ new function(){
     }
 
     /*
-     *Start SmoothScroll
+     * Start SmoothScroll
       -------------------------------------------------*/
     function SmoothScroll(a){
         if(d.getElementById(a.rel.replace(/.*\#/,""))){
@@ -98,7 +98,7 @@ new function(){
 <body>
 <header id="contents_head">
 <h1 class="title"><span class="title_font">GEEK</span>
-<span class="title_date">2014/08/07</span></h1>
+<span class="title_date">2014/08/07 (Thu)</span></h1>
 
 
 <nav class="agenda">
@@ -313,18 +313,19 @@ new function(){
 <dt>SCSS :</dt>
 <dd>
 <pre class="syntax_css">
+<span class="comment">// Set Banner</span>
+<span class="sass_propaty">$bannerType</span>: <span class="sass_value">campaign</span>;
+<span class="sass_propaty">$accentColor</span>: <span class="sass_value">blue</span>;
 
-<span class="sass_propaty">$banner_type</span>: <span class="sass_value">campaign</span>;
-<span class="sass_propaty">$accent_color</span>: <span class="sass_value">blue</span>;
-
-<span class="selecter">.<span class="sass_propaty">#{$banner_type}</span>_banner</span> {
+<span class="comment">/* Banner */</span>
+<span class="selecter">.<span class="sass_propaty">#{$bannerType}</span>_banner</span> {
     <span class="propaty">width</span>: <span class="value">500<span class="sass_propaty">/</span>2px</span>;
     <span class="selecter">a</span> {
         <span class="propaty">display</span>: <span class="value">block</span>;
         <span class="propaty">padding</span>: <span class="value">10px 20px</span>;
-        <span class="propaty">color</span>: red;
+        <span class="propaty">color</span>: <span class="value">red</span>;
         <span class="sass_propaty">&amp;</span><span class="selecter">:hover</span> {
-            <span class="propaty">color</span>: <span class="sass_propaty">$accent_color</span>;
+            <span class="propaty">color</span>: <span class="sass_propaty">$accentColor</span>;
         }
     }
 }
@@ -336,6 +337,7 @@ new function(){
 <dt>CSS :</dt>
 <dd>
 <pre class="syntax_css">
+<span class="comment">/* Banner */</span>
 <span class="selecter">.campaign_banner</span> {
     <span class="propaty">width</span>: <span class="value">250px</span>;
 }
