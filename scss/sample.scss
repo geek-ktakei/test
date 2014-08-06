@@ -1,0 +1,87 @@
+@charset "utf-8";
+@import 'partial/normalize';
+/* -----------------------------------------------------------
+ *
+ * 1 : Nesting
+ * 2 : @extend
+ * 3 : @mixin
+ * 4 : etc...
+ *
+ * ---------------------------------------------------------- */
+section {
+	position: relative;
+	margin-bottom: 45px;
+	min-height: 250px;
+	h2 {
+		border-bottom: 1px dotted #999999;
+	}
+}
+
+
+/*
+ * 1 : Nesting
+ */
+.example {
+	background: black;
+	.text {
+		color: red;
+	}
+}
+
+
+/*
+ * 2 : @extend
+ */
+%text_large {
+	font-size: 1.3rem;
+}
+.text01 {
+	@extend %text_large;
+	color: red;
+}
+.text02 {
+	@extend %text_large;
+	color: blue;
+}
+
+
+/*
+ * 3 : @mixin
+ */
+@mixin position($top, $right, $bottom, $left) {
+	position: absolute;
+	@if $top    != '' { top: $top; }
+	@if $bottom != '' { bottom: $bottom; }
+	@if $left   != '' { left: $left; }
+	@if $right  != '' { right: $right; }
+}
+.box {
+	@include position(50%, '', '', 20px);
+}
+
+
+/*
+ * 4 : etc...
+ */
+
+// Set Banner
+$bannerType: campaign;
+$keyColor: red;
+$borderSize: 5px;
+
+/* Banner */
+.#{$bannerType}_banner {
+	margin: 0 auto;
+	width: 500px - ($borderSize * 2);
+	border: solid $borderSize $keyColor;
+	border-radius: 4px;
+	a {
+		display: block;
+		padding: 10px 20px;
+		color: white;
+		background: $keyColor;
+		&:hover {
+			background: $keyColor * .7;
+		}
+	}
+}

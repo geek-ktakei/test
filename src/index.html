@@ -4,95 +4,7 @@
 <meta charset="UTF-8">
 <title>GEEK 勉強会資料 2014/08/07</title>
 <link href="/css/style.css" rel="stylesheet" />
-<script>
-'use strict';
-new function(){
-
-    var attr ="data-tor-smoothScroll"; // for html5 , if you can't use html5 , this value change "class"
-    var attrPatt = /noSmooth/;
-    var d = document; // document short cut
-
-    /*
-     * add Event
-      -------------------------------------------------*/
-    function addEvent(elm,listener,fn){
-        try{ // IE
-            elm.addEventListener(listener,fn,false);
-        }catch(e){
-            elm.attachEvent(
-                "on"+listener
-                ,function(){
-                    fn.apply(elm,arguments)
-                }
-            );
-        }
-    }
-
-    /*
-     * Start SmoothScroll
-      -------------------------------------------------*/
-    function SmoothScroll(a){
-        if(d.getElementById(a.rel.replace(/.*\#/,""))){
-            var e = d.getElementById(a.rel.replace(/.*\#/,""));
-        }else{
-            return;
-        }
-
-        //Move point
-        var end=e.offsetTop
-        var docHeight = d.documentElement.scrollHeight;
-        var winHeight = window.innerHeight || d.documentElement.clientHeight
-        if(docHeight-winHeight<end){
-            var end = docHeight-winHeight;
-        }
-
-        //Current Point
-        var start=window.pageYOffset || d.documentElement.scrollTop || d.body.scrollTop || 0;
-
-
-        var flag=(end<start)?"up":"down";
-
-        function scrollMe(start,end,flag) {
-            setTimeout(
-                function(){
-                    if(flag=="up" && start >= end){
-                        start=start-(start-end)/20-1;
-                        window.scrollTo(0,start)
-                        scrollMe(start,end,flag);
-                    }else if(flag=="down" && start <= end){
-                        start=start+(end-start)/20+1;
-                        window.scrollTo(0,start)
-                        scrollMe(start,end,flag);
-                    }else{
-                        scrollTo(0,end);
-                    }
-                    return ;
-                }
-                ,10
-            );
-
-        }
-
-        scrollMe(start,end,flag);
-
-    }
-
-    /*
-     *Add SmoothScroll
-      -------------------------------------------------*/
-    addEvent(window,"load",function(){
-        var anchors = d.getElementsByTagName("a");
-        for(var i = 0 ,len=anchors.length; i<len ; i++){
-            if(!attrPatt.test(anchors[i].getAttribute(attr)) &&
-                anchors[i].href.replace(/\#[a-zA-Z0-9_]+/,"") == location.href.replace(/\#[a-zA-Z0-9_]+/,"")){
-                anchors[i].rel = anchors[i].href;
-                anchors[i].href = "javascript:void(0)";
-                anchors[i].onclick=function(){SmoothScroll(this)}
-            }
-        }
-    });
-}
-</script>
+<script src="/js/script.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -152,6 +64,7 @@ new function(){
 <p><a href="http://gruntjs.com/" target="_blank">Documentation</a></p>
 <ul>
 <li>現在主流のタスクランナー</li>
+<li>NodeJSアプリケーション</li>
 <li>豊富なプラグイン</li>
 <li>多くの日本語情報</li>
 </ul>
@@ -164,6 +77,7 @@ new function(){
 <p></p>
 <ul>
 <li>後発のタスクランナー</li>
+<li>NodeJSアプリケーション</li>
 <li>gruntに比べてサクサク動く（気がする）</li>
 <li>コンフィグが書きやすい（気がする）</li>
 <li>ナウい</li>
@@ -205,6 +119,12 @@ new function(){
 <section id="sass">
 <h3>Sass</h3>
 <p><a href="http://sass-lang.com/" target="_blank">Documentation</a></p>
+<ul>
+<li>Rubyアプリケーション</li>
+<li>sass記法とscss記法があるが、通常scss記法を使用する</li>
+<li><a href="http://compass-style.org/" target="_blank">compass</a>など便利なフレームワークもあるが、最近失速気味</li>
+<li>オフィシャルページの眼鏡に、コロン（ : ）とセミコロン（ ; ）がついている</li>
+</ul>
 <div class="box" id="sass_nesting">
 <h4>Nesting</h4>
 <dl>
@@ -246,11 +166,11 @@ new function(){
     <span class="propaty">font-size</span>: <span class="value">1.3rem</span>;
 }
 <span class="selecter">.text01</span> {
-    <span class="sass_propaty">@extend</span> <span class="sass_value">.text_large</span>;
+    <span class="sass_propaty">@extend</span> <span class="sass_value">%text_large</span>;
     <span class="propaty">color</span>: <span class="value">red</span>;
 }
 <span class="selecter">.text02</span> {
-    <span class="sass_propaty">@extend</span> <span class="sass_value">.text_large</span>;
+    <span class="sass_propaty">@extend</span> <span class="sass_value">%text_large</span>;
     <span class="propaty">color</span>: <span class="value">blue</span>;
 }
 </pre>
@@ -283,12 +203,16 @@ new function(){
 <dt>SCSS :</dt>
 <dd>
 <pre class="syntax_css">
-<span class="sass_propaty">@mixin</span> <span class="sass_value">grady($from, $to)</span> {
-    <span class="propaty">background</span>: <span class="value">-moz-linear-gradient(top, <span class="sass_value">#{$from}</span>, <span class="sass_value">#{$to}</span>)</span>;
-    <span class="propaty">background</span>: <span class="value">-webkit-gradient(linear, left top, <span class="sass_value">#{$from}</span>, <span class="sass_value">#{$to}</span>)</span>;
+<span class="sass_propaty">@mixin</span> <span class="sass_value">position($top, $right, $bottom, $left)</span> {
+    <span class="propaty">position</span>: <span class="value">absolute</span>;
+    <span class="sass_propaty">@if $top    != ''</span> { <span class="propaty">top: </span><span class="sass_value">$top</span>; }
+    <span class="sass_propaty">@if $bottom != ''</span> { <span class="propaty">bottom: </span><span class="sass_value">$bottom</span>; }
+    <span class="sass_propaty">@if $left   != ''</span> { <span class="propaty">left: </span><span class="sass_value">$left</span>; }
+    <span class="sass_propaty">@if $right  != ''</span> { <span class="propaty">right: </span><span class="sass_value">$right</span>; }
 }
+
 <span class="selecter">.box</span> {
-    <span class="sass_propaty">@include</span> <span class="sass_value">grady(white, black)</span>;
+    <span class="sass_propaty">@include</span> <span class="sass_value">position(50%, '', '', 20px)</span>;
 }
 </pre>
 </dd>
@@ -299,8 +223,9 @@ new function(){
 <dd>
 <pre class="syntax_css">
 <span class="selecter">.box</span> {
-    <span class="propaty">background</span>: <span class="value">-moz-linear-gradient(top, white, black)</span>;
-    <span class="propaty">background</span>: <span class="value">-webkit-gradient(linear, left top, white, black)</span>;
+    <span class="propaty">position</span>: <span class="value">absolute</span>;
+    <span class="propaty">top</span>: <span class="value">50%</span>;
+    <span class="propaty">left</span>: <span class="value">20px</span>;
 }
 </pre>
 </dd>
@@ -315,17 +240,20 @@ new function(){
 <pre class="syntax_css">
 <span class="comment">// Set Banner</span>
 <span class="sass_propaty">$bannerType</span>: <span class="sass_value">campaign</span>;
-<span class="sass_propaty">$accentColor</span>: <span class="sass_value">blue</span>;
+<span class="sass_propaty">$keyColor</span>: <span class="sass_value">red</span>;
+<span class="sass_propaty">$borderSize</span>: <span class="sass_value">5px</span>;
 
 <span class="comment">/* Banner */</span>
 <span class="selecter">.<span class="sass_propaty">#{$bannerType}</span>_banner</span> {
-    <span class="propaty">width</span>: <span class="value">500<span class="sass_propaty">/</span>2px</span>;
+    <span class="propaty">width</span>: <span class="value">250px</span><span class="sass_value"> - (</span><span class="sass_propaty">$borderSize</span><span class="sass_value"> * 2)</span>;
+    <span class="propaty">border</span>: <span class="value">solid</span> <span class="sass_propaty">$borderSize $keyColor</span>;
     <span class="selecter">a</span> {
         <span class="propaty">display</span>: <span class="value">block</span>;
         <span class="propaty">padding</span>: <span class="value">10px 20px</span>;
-        <span class="propaty">color</span>: <span class="value">red</span>;
+        <span class="propaty">background</span>: <span class="sass_propaty">$keyColor</span>;
+        <span class="propaty">color</span>: <span class="propaty">white</span>;
         <span class="sass_propaty">&amp;</span><span class="selecter">:hover</span> {
-            <span class="propaty">color</span>: <span class="sass_propaty">$accentColor</span>;
+            <span class="propaty">background</span>: <span class="sass_propaty">$keyColor</span><span class="sass_value"> * .7</span>;
         }
     }
 }
@@ -339,15 +267,17 @@ new function(){
 <pre class="syntax_css">
 <span class="comment">/* Banner */</span>
 <span class="selecter">.campaign_banner</span> {
-    <span class="propaty">width</span>: <span class="value">250px</span>;
+    <span class="propaty">width</span>: <span class="value">240px</span>;
+    <span class="propaty">border</span>: <span class="value">solid 5px red</span>;
 }
 <span class="selecter">.campaign_banner a</span> {
     <span class="propaty">display</span>: <span class="value">block</span>;
-    <span class="propaty">padding</span>: <span class="value">10px 25px</span>;
-    <span class="propaty">color</span>: <span class="value">red</span>;
+    <span class="propaty">padding</span>: <span class="value">10px 20px</span>;
+    <span class="propaty">background</span>: <span class="value">red</span>;
+    <span class="propaty">color</span>: <span class="value">white</span>;
 }
 <span class="selecter">.campaign_banner a:hover</span> {
-    <span class="propaty">color</span>: <span class="value">blue</span>;
+    <span class="propaty">background</span>: <span class="value">#c40000</span>;
 }
 </pre>
 </dd>
